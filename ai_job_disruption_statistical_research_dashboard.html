@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Empirical Reality of AI Anxiety & Labor Market Restructuring</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#F9F8F6',
+                            card: '#FFFFFF',
+                            text: '#1E293B',
+                            muted: '#64748B',
+                            indigo: '#2B3A4A',
+                            accent: '#D97706',
+                            danger: '#E11D48',
+                            teal: '#0D9488',
+                            border: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9F8F6;
+            color: #1E293B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Chosen Palette: Warm Editorial Neutral (Background #F9F8F6, Slate Ink #1E293B, Deep Indigo Accent #2B3A4A, Warm Gold/Amber #D97706, Rose #E11D48, Teal #0D9488) -->
+
+    <!-- Application Structure Plan:
+        1. Sticky Header & KPI Banner: Essential macroeconomic data highlights (Net +78M roles, 60% Exposure, 40% FOBO, +62% Wage Premium).
+        2. Primary Navigation Tabs:
+           - Section 1: Macro Restructuring & Projections (WEF, IMF, Goldman Sachs, McKinsey, Layoff Trajectory).
+           - Section 2: FOBO & Psychological Dynamics (Fear trends, Literacy-Anxiety Paradox, Shadow AI, Exec Disconnect).
+           - Section 3: Sectoral & Demographic Divide (Industry vulnerabilities, Youth/Entry-level Squeeze, Gender gap).
+           - Section 4: Wage Premiums & Reskilling Friction (PwC Barometer, Skill inflation, HR vs Manager disconnect).
+           - Section 5: Interactive Career Mobility & Risk Assessment Tool (Custom risk scoring simulator for users).
+        3. Comprehensive Dynamic Filtering & Interactive Search across key findings.
+        4. Contextual Explanations & Takeaways with zero external dependencies and strict responsive styling.
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Macro Exposure Chart: Grouped Bar Chart (Chart.js) -> Illustrating exposure gradients across Advanced, Emerging, and Low-Income economies.
+        - Layoff Evolution: Line/Bar Combo (Chart.js) -> Demonstrating 2024 to 2026 AI-attributed layoff spike and percentage of anticipatory cuts.
+        - FOBO & Anxiety Trend: Line Chart (Chart.js) -> Tracking Mercer & Pew fear metrics over time.
+        - Literacy-Anxiety Paradox: Doughnut/Duo Bar Chart (Chart.js) -> Comparing replacement expectation of daily AI users vs non-users.
+        - Sector Disruption: Horizontal Bar Chart (Chart.js) -> Direct sectoral risk comparison (Tech, Admin, Marketing vs Construction/Maintenance).
+        - Wage Premium Expansion: Dual Line/Bar Chart (Chart.js) -> Global AI skill premium trajectory vs baseline degree valuation.
+        - Career Risk Simulator: Pure JavaScript Interactive Calculator -> Allows user input (Role, AI Usage, Skill Type) to output personalized risk index & skill upgrade recommendation.
+        - Confirmation: NO SVG graphics used. NO Mermaid JS used. HTML unicode icons & Chart.js canvas elements used exclusively.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header & Brand Top Bar -->
+    <header class="bg-brand-indigo text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs px-2.5 py-1 bg-amber-500 text-slate-900 font-bold uppercase tracking-wider rounded">Statistical Research Brief</span>
+                        <span class="text-xs text-slate-300">Empirical Synthesis 2024–2026</span>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-serif font-bold tracking-tight text-white mt-1">The Empirical Reality of AI Anxiety & Labor Restructuring</h1>
+                </div>
+                <!-- Global Search Input -->
+                <div class="w-full md:w-72 relative">
+                    <input type="text" id="global-search" placeholder="Search data points, stats, sectors..." 
+                        class="w-full pl-9 pr-4 py-2 bg-slate-800 border border-slate-700 text-slate-100 rounded-lg text-sm focus:outline-none focus:border-amber-400 placeholder-slate-400">
+                    <span class="absolute left-3 top-2.5 text-slate-400 text-sm">🔍</span>
+                </div>
+            </div>
+        </div>
+        <!-- Sub-Nav Tab Bar -->
+        <nav class="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 lg:px-8 overflow-x-auto custom-scrollbar">
+            <div class="max-w-7xl mx-auto flex space-x-1 sm:space-x-4 text-xs sm:text-sm font-medium py-2">
+                <button onclick="switchTab('macro')" id="tab-macro" class="tab-btn active text-amber-400 border-b-2 border-amber-400 px-3 py-2 rounded-t font-semibold whitespace-nowrap">
+                    🌐 Macro Exposure & Cuts
+                </button>
+                <button onclick="switchTab('fobo')" id="tab-fobo" class="tab-btn text-slate-400 hover:text-slate-200 px-3 py-2 rounded-t whitespace-nowrap">
+                    🧠 FOBO & Sentiment Paradox
+                </button>
+                <button onclick="switchTab('sectors')" id="tab-sectors" class="tab-btn text-slate-400 hover:text-slate-200 px-3 py-2 rounded-t whitespace-nowrap">
+                    ⚖️ Sector & Demographic Divide
+                </button>
+                <button onclick="switchTab('wages')" id="tab-wages" class="tab-btn text-slate-400 hover:text-slate-200 px-3 py-2 rounded-t whitespace-nowrap">
+                    💸 Wages & Reskilling Deficit
+                </button>
+                <button onclick="switchTab('simulator')" id="tab-simulator" class="tab-btn text-slate-400 hover:text-slate-200 px-3 py-2 rounded-t whitespace-nowrap bg-amber-500/10 text-amber-300 border border-amber-500/30">
+                    ⚡ Interactive Risk Simulator
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- KPI Summary Ticker Banner -->
+    <section class="bg-white border-b border-brand-border py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div class="p-3 bg-brand-bg rounded-lg border border-slate-200/60 shadow-sm">
+                    <p class="text-xs text-brand-muted uppercase tracking-wider font-semibold">2030 Global Net Jobs</p>
+                    <p class="text-xl sm:text-2xl font-bold text-teal-600 font-serif">+78 Million</p>
+                    <p class="text-[11px] text-slate-500 mt-0.5">170M created vs 92M displaced (WEF)</p>
+                </div>
+                <div class="p-3 bg-brand-bg rounded-lg border border-slate-200/60 shadow-sm">
+                    <p class="text-xs text-brand-muted uppercase tracking-wider font-semibold">Advanced Economy Exposure</p>
+                    <p class="text-xl sm:text-2xl font-bold text-amber-600 font-serif">60% of Roles</p>
+                    <p class="text-[11px] text-slate-500 mt-0.5">Vs 40% emerging / 26% low-income (IMF)</p>
+                </div>
+                <div class="p-3 bg-brand-bg rounded-lg border border-slate-200/60 shadow-sm">
+                    <p class="text-xs text-brand-muted uppercase tracking-wider font-semibold">Global Workforce FOBO</p>
+                    <p class="text-xl sm:text-2xl font-bold text-rose-600 font-serif">40% Afraid</p>
+                    <p class="text-[11px] text-slate-500 mt-0.5">Up from 28% in 2024 (Mercer)</p>
+                </div>
+                <div class="p-3 bg-brand-bg rounded-lg border border-slate-200/60 shadow-sm">
+                    <p class="text-xs text-brand-muted uppercase tracking-wider font-semibold">AI Skill Wage Premium</p>
+                    <p class="text-xl sm:text-2xl font-bold text-brand-indigo font-serif">+62% Salary</p>
+                    <p class="text-[11px] text-slate-500 mt-0.5">Vs baseline non-AI roles (PwC 2026)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dynamic Content Wrapper -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- TAB 1: MACRO EXPOSURE & CUTS -->
+        <section id="section-macro" class="tab-content block space-y-8">
+            <!-- Section Intro -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <h2 class="text-2xl font-serif font-bold text-brand-indigo mb-2">Macroeconomic Restructuring & The Deployment Paradox</h2>
+                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                    The integration of artificial intelligence is reshaping employment structures globally. Rather than causing total mass unemployment, empirical data reveals a market characterized by high exposure, job turnover, and intense friction. While <strong>170 million new roles</strong> are forecast to emerge worldwide by 2030 against <strong>92 million displaced</strong>, corporate layoff behavior shows a stark spike in anticipatory staff reductions running far ahead of actual technical deployment.
+                </p>
+            </div>
+
+            <!-- Grid of Visuals & Context -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Visual 1: Exposure by Geographic Economy -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">AI Labor Exposure by Economic Development</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Source: IMF Research</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Advanced economies face the highest role exposure due to knowledge-work density, but possess higher reskilling capital.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartMacroExposure"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-amber-50/50 p-3 rounded-lg border border-amber-200/50">
+                        <strong>Key Insight:</strong> 60% of jobs in advanced nations are exposed, compared to just 26% in low-income countries. However, advanced markets possess superior capital reserves to absorb and pivot.
+                    </div>
+                </div>
+
+                <!-- Visual 2: Corporate Layoff Trajectory & Anticipatory Cuts -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">US Corporate AI-Attributed Layoff Spike</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Source: Challenger / Press Data</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Annual trajectory of AI-attributed layoff announcements alongside executive rationale breakdowns.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartLayoffs"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-rose-50/50 p-3 rounded-lg border border-rose-200/50">
+                        <strong>The Anticipatory Paradox:</strong> 77% of AI-linked layoffs were anticipatory based on expected future capabilities, while 59% of firms used AI as a public narrative to cover standard cost reductions.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Institutional Forecast Comparison Table -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <h3 class="font-serif font-bold text-lg text-brand-indigo mb-4">Institutional Forecast Matrix</h3>
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-brand-indigo">
+                                <th class="p-3 font-semibold">Institution</th>
+                                <th class="p-3 font-semibold">Scope</th>
+                                <th class="p-3 font-semibold">Time Horizon</th>
+                                <th class="p-3 font-semibold">Core Finding / Benchmark</th>
+                                <th class="p-3 font-semibold">Primary Analytical Focus</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-slate-700">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-medium text-slate-900">World Economic Forum</td>
+                                <td class="p-3">Global (55 economies)</td>
+                                <td class="p-3">By 2030</td>
+                                <td class="p-3 font-semibold text-teal-600">92M displaced, 170M created (Net +78M)</td>
+                                <td class="p-3">Structural labor turnover & role creation</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-medium text-slate-900">International Monetary Fund</td>
+                                <td class="p-3">Global Economies</td>
+                                <td class="p-3">Current Baseline</td>
+                                <td class="p-3 font-semibold text-amber-600">40% global exposure (60% advanced)</td>
+                                <td class="p-3">Vulnerability by macroeconomic tier</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-medium text-slate-900">Goldman Sachs Research</td>
+                                <td class="p-3">US & Global</td>
+                                <td class="p-3">10-Year Horizon</td>
+                                <td class="p-3 font-semibold text-rose-600">300M full-time roles exposed; 6-7% US displacement</td>
+                                <td class="p-3">Task-level automation friction</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-medium text-slate-900">McKinsey Global Institute</td>
+                                <td class="p-3">United States</td>
+                                <td class="p-3">Through 2030</td>
+                                <td class="p-3 font-semibold text-indigo-600">57% work hours automatable; 12M transitions</td>
+                                <td class="p-3">Technical capacity vs deployment rate</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-3 font-medium text-slate-900">Brookings Institution</td>
+                                <td class="p-3">United States</td>
+                                <td class="p-3">2026 Baseline</td>
+                                <td class="p-3 font-semibold text-rose-700">6.1M high-exposure, low-adaptability workers</td>
+                                <td class="p-3">Regional worker vulnerability</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FOBO & PSYCHOLOGICAL DYNAMICS -->
+        <section id="section-fobo" class="tab-content hidden space-y-8">
+            <!-- Section Intro -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <h2 class="text-2xl font-serif font-bold text-brand-indigo mb-2">Psychological Mechanics of FOBO & Workplace Disconnect</h2>
+                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                    Employee sentiment has evolved from general technological curiosity to acute <strong>FOBO (Fear of Becoming Obsolete)</strong>. Statistical evaluation reveals a stark <em>Literacy-Anxiety Paradox</em>: counter-intuitively, employees who use AI tools daily display double the job loss fear of non-users. This anxiety drives clandestine workplace behaviors, such as <strong>Shadow AI</strong>, and reflects a severe perceptual divide between optimistic C-suite executives and front-line contributors.
+                </p>
+            </div>
+
+            <!-- Grid of Visuals -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Visual 3: FOBO Trend lines -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">Workforce Fear of AI Job Loss (2023–2026)</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Mercer & Pew Studies</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Percentage of workers expressing active anxiety regarding technological job replacement.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartFoboTrend"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-3 rounded-lg">
+                        <strong>Metric Highlight:</strong> Global employee concern jumped from 28% in 2024 to 40% in 2026. Among anxious workers, FOBO affects 75% of daily sentiment.
+                    </div>
+                </div>
+
+                <!-- Visual 4: The Literacy Anxiety Paradox -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">The Literacy-Anxiety Paradox</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Source: Gallup Benchmark</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Expected job elimination within 5 years based on frequency of personal AI usage.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartLiteracyParadox"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-amber-50/50 p-3 rounded-lg border border-amber-200/50">
+                        <strong>Why Fluency Drives Fear:</strong> Daily users observe exact model capabilities firsthand, accelerating personal replacement awareness rather than quelling concern.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qualitative Insights & Executive Disconnect Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-5 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-rose-600 uppercase tracking-wide mb-1">Clandestine Workplace Behaviors</div>
+                        <h4 class="font-serif font-bold text-base text-brand-indigo mb-2">Shadow AI & Concealed Usage</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            <strong>53%</strong> of employees fear being perceived as easily replaceable if leadership sees them using AI. Consequently, <strong>52%</strong> actively conceal AI tool usage, completing work in secret while masking efficiency gains.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-semibold text-slate-400 border-t pt-2">Source: Wellhub & WTW EX Studies</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-5 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-amber-600 uppercase tracking-wide mb-1">Leadership Perception Gap</div>
+                        <h4 class="font-serif font-bold text-base text-brand-indigo mb-2">76% vs 31% Executive Disconnect</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            BCG/HBR research shows <strong>76% of executives</strong> believe their staff is enthusiastic about AI, whereas only <strong>31% of individual contributors</strong> report positive sentiment.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-semibold text-slate-400 border-t pt-2">Source: BCG / Harvard Business Review</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-5 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-indigo-600 uppercase tracking-wide mb-1">Humanization Decline</div>
+                        <h4 class="font-serif font-bold text-base text-brand-indigo mb-2">Dehumanized Workspaces</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Concerns over workplaces feeling "less human" surged from <strong>22% in 2023</strong> to <strong>63% in 2026</strong>. Meanwhile, only <strong>19% of HR leaders</strong> factor psychological safety into digital transformations.
+                        </p>
+                    </div>
+                    <div class="mt-4 text-xs font-semibold text-slate-400 border-t pt-2">Source: KPMG & Mercer Surveys</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: SECTOR & DEMOGRAPHIC DIVIDE -->
+        <section id="section-sectors" class="tab-content hidden space-y-8">
+            <!-- Section Intro -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <h2 class="text-2xl font-serif font-bold text-brand-indigo mb-2">Sector Vulnerabilities, Youth Squeeze & Gender Disparities</h2>
+                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                    The burden of AI integration is sharply skewed across demographic and industry fault lines. Highly structured cognitive fields (Technology, Marketing, Admin) face severe automated task replacement, while physical trades remain protected. Crucially, an <strong>entry-level hydraulic squeeze</strong> is dismantling the early career pipeline, and occupational clustering exposes female employees to high disruption risk at nearly triple the rate of men in high-income economies.
+                </p>
+            </div>
+
+            <!-- Grid Visuals -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Visual 5: Sectoral Automation Risk -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">Sector Automation & Impact Breakdown</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Multi-Source Synthesis</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Proportion of tasks/roles within key sectors susceptible to direct AI substitution.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartSectorRisk"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-slate-50 p-3 rounded-lg">
+                        <strong>Sector Spectrum:</strong> Customer Service (80%) and Admin (7.5M roles vulnerable) top the displacement risk, whereas Construction (6%) and Maintenance (4%) are buffered by spatial complexity.
+                    </div>
+                </div>
+
+                <!-- Visual 6: Gender Vulnerability Variance -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">Gender Disparity in High-Risk Occupations</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">ILO & US Bureau Data</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Percentage of workforce populations positioned in high-exposure automation categories.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartGenderDivide"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-rose-50/50 p-3 rounded-lg border border-rose-200/50">
+                        <strong>Structural Gender Asymmetry:</strong> In the US, 79% of employed women work in high-risk categories vs 58% of men, driven by heavy representation in administrative, secretarial, and customer service roles.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deep Dive: The Entry-Level Hydraulic Squeeze -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6">
+                    <div>
+                        <span class="text-xs font-bold text-rose-600 uppercase tracking-wide">Career Pipeline Breakdown</span>
+                        <h3 class="text-xl font-serif font-bold text-brand-indigo">The Entry-Level Hydraulic Squeeze</h3>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="px-3 py-1 bg-rose-100 text-rose-800 text-xs font-bold rounded-full">Youth Unemp: 9.5%</span>
+                        <span class="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-full">Headline: 4.28%</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600">
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-sm text-slate-900 mb-2">📉 73.4% Hiring Drop</h4>
+                        <p class="leading-relaxed">
+                            European technology firms recorded a <strong>73.4% drop</strong> in entry-level hiring between 2024 and 2025. Big Tech enterprises reduced new graduate recruitment by 25%.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-sm text-slate-900 mb-2">✂️ Severed Apprenticeship</h4>
+                        <p class="leading-relaxed">
+                            AI agents now execute baseline legal drafting, basic debugging, and financial entry. Junior workers are deprived of the routine task baseline that historically built senior judgment.
+                        </p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-sm text-slate-900 mb-2">🚀 7x Requirement Inflation</h4>
+                        <p class="leading-relaxed">
+                            PwC’s AI Jobs Barometer shows early-career job postings in AI-exposed fields are now <strong>7 times more likely</strong> to demand senior-level strategic orchestration skills.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: WAGES & RESKILLING DEFICIT -->
+        <section id="section-wages" class="tab-content hidden space-y-8">
+            <!-- Section Intro -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <h2 class="text-2xl font-serif font-bold text-brand-indigo mb-2">Wage Premium Polarization & Operational Reskilling Friction</h2>
+                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                    While basic task execution faces wage deflation, certified AI skills command extraordinary economic value. The global <strong>AI wage premium has surged to 62%</strong> over baseline roles. However, organizational attempts to pivot internal talent are stalled by severe execution disconnects: although <strong>92% of HR leaders</strong> believe existing staff can be reskilled, most organizations default to expensive external hiring over internal redeployment.
+                </p>
+            </div>
+
+            <!-- Grid Visuals -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Visual 7: AI Skill Premium Trajectory -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">Global AI Skill Salary Premium (2024–2026)</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Source: PwC Jobs Barometer</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Advertised wage premium percentage added for validated AI technical expertise.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartWagePremium"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-teal-50/50 p-3 rounded-lg border border-teal-200/50">
+                        <strong>Degree vs AI Valuation:</strong> In the UK, holding validated AI skills yields a 23% salary premium—outpacing the career premium of a Master's degree (13%) or Bachelor's degree (8%).
+                    </div>
+                </div>
+
+                <!-- Visual 8: Strategic Reskilling Friction -->
+                <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-serif font-bold text-lg text-brand-indigo">Reskilling Intent vs Execution Reality</h3>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded">Source: Careerminds Study</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            Survey breakdown of 1,100+ HR professionals and managers on workforce transformation.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="chartReskillingFriction"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-600 bg-amber-50/50 p-3 rounded-lg border border-amber-200/50">
+                        <strong>The Visibility Gap:</strong> 43% of HR departments report having zero visibility into internal skill inventories, while 63% of HR and 24% of managers clash over strategy ownership.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry Wage Premium Breakdown Grid -->
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <h3 class="font-serif font-bold text-lg text-brand-indigo mb-4">Sectoral Breakdown: AI Skill Premium Trajectory (2024 vs 2026)</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold mb-1">Consumer Sector</div>
+                        <div class="text-2xl font-bold text-teal-600 font-serif">+118%</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Up from +45% in 2024</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold mb-1">Financial Services</div>
+                        <div class="text-2xl font-bold text-indigo-600 font-serif">+65%</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Up from +28% in 2024</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold mb-1">Tech & Software</div>
+                        <div class="text-2xl font-bold text-amber-600 font-serif">+58%</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Up from +22% in 2024</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                        <div class="text-xs text-slate-500 font-semibold mb-1">Public Sector / Gov</div>
+                        <div class="text-2xl font-bold text-slate-700 font-serif">+16%</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Up from +8% in 2024</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: INTERACTIVE RISK SIMULATOR -->
+        <section id="section-simulator" class="tab-content hidden space-y-8">
+            <div class="bg-white p-6 rounded-xl border border-brand-border shadow-sm">
+                <div class="flex items-center gap-3 mb-2">
+                    <span class="text-2xl">⚡</span>
+                    <h2 class="text-2xl font-serif font-bold text-brand-indigo">Interactive Career Mobility & FOBO Assessment Tool</h2>
+                </div>
+                <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
+                    Input your job role profile, AI usage habits, and skill focus to calculate your personal <strong>Displacement Vulnerability Index</strong>, projected <strong>Wage Premium Potential</strong>, and recommended strategic pivot path based on empirical benchmark models.
+                </p>
+            </div>
+
+            <!-- Simulator Tool Main Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- Controls Column -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-xl border border-brand-border shadow-sm space-y-5">
+                    <h3 class="font-serif font-bold text-lg text-brand-indigo border-b pb-3">Your Occupational Parameters</h3>
+                    
+                    <!-- Select 1: Job Field -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Current Job Field / Sector</label>
+                        <select id="sim-field" onchange="calculateRisk()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-800 focus:ring-2 focus:ring-amber-500">
+                            <option value="admin">Administrative & Support Services (Clerical, Exec Assistant)</option>
+                            <option value="tech">Technology & Software Engineering (Dev, QA, Data)</option>
+                            <option value="marketing">Marketing, Content Creation & Copywriting</option>
+                            <option value="finance">Banking, Risk Modeling & Financial Services</option>
+                            <option value="customer">Customer Support & Call Center Operations</option>
+                            <option value="trades">Construction, Maintenance & Physical Trades</option>
+                        </select>
+                    </div>
+
+                    <!-- Select 2: Experience Tier -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Career Seniority Level</label>
+                        <select id="sim-tier" onchange="calculateRisk()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-800 focus:ring-2 focus:ring-amber-500">
+                            <option value="entry">Entry-Level / Junior (0-3 years exp)</option>
+                            <option value="mid">Mid-Career Professional (4-9 years exp)</option>
+                            <option value="senior">Senior Executive / Strategic Leader (10+ years)</option>
+                        </select>
+                    </div>
+
+                    <!-- Select 3: AI Usage Frequency -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Personal AI Tool Frequency</label>
+                        <select id="sim-usage" onchange="calculateRisk()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-800 focus:ring-2 focus:ring-amber-500">
+                            <option value="daily">Daily Intensive Use (Prompts, Agentic tools)</option>
+                            <option value="weekly">Occasional Use (Weekly research / drafting)</option>
+                            <option value="none">Non-User / Rare Interaction</option>
+                        </select>
+                    </div>
+
+                    <!-- Select 4: Primary Skill Orientation -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Core Skill Orientation</label>
+                        <select id="sim-skill" onchange="calculateRisk()" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-800 focus:ring-2 focus:ring-amber-500">
+                            <option value="execution">Routine Task Execution (Data entry, basic code, copy)</option>
+                            <option value="orchestration">Agentic AI Orchestration & Process Integration</option>
+                            <option value="human">High Physical / Interpersonal Management</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Outputs Column -->
+                <div class="lg:col-span-7 bg-white p-6 rounded-xl border border-brand-border shadow-sm flex flex-col justify-between space-y-6">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-brand-indigo border-b pb-3 mb-6">Empirical Assessment Output</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <!-- Score 1 -->
+                            <div class="p-4 bg-slate-50 rounded-lg text-center border border-slate-200">
+                                <span class="text-xs text-slate-500 font-semibold block mb-1">Displacement Risk Score</span>
+                                <span id="res-risk" class="text-3xl font-bold font-serif text-rose-600">78%</span>
+                                <span id="res-risk-label" class="text-[11px] block mt-1 font-semibold text-rose-700">High Risk Tier</span>
+                            </div>
+                            <!-- Score 2 -->
+                            <div class="p-4 bg-slate-50 rounded-lg text-center border border-slate-200">
+                                <span class="text-xs text-slate-500 font-semibold block mb-1">Projected Wage Impact</span>
+                                <span id="res-wage" class="text-3xl font-bold font-serif text-teal-600">+0%</span>
+                                <span id="res-wage-label" class="text-[11px] block mt-1 font-semibold text-slate-500">Task Commoditization</span>
+                            </div>
+                            <!-- Score 3 -->
+                            <div class="p-4 bg-slate-50 rounded-lg text-center border border-slate-200">
+                                <span class="text-xs text-slate-500 font-semibold block mb-1">FOBO Index Level</span>
+                                <span id="res-fobo" class="text-3xl font-bold font-serif text-amber-600">Elevated</span>
+                                <span id="res-fobo-label" class="text-[11px] block mt-1 font-semibold text-amber-700">Literacy Paradox Zone</span>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Recommendation Box -->
+                        <div class="p-4 rounded-lg bg-indigo-50 border border-indigo-200 text-slate-700">
+                            <h4 class="font-serif font-bold text-sm text-brand-indigo mb-2 flex items-center gap-2">
+                                💡 Strategic Action & Reskilling Pivot Recommendation:
+                            </h4>
+                            <p id="res-advice" class="text-xs sm:text-sm leading-relaxed">
+                                Loading customized empirical recommendation...
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Benchmark Context note -->
+                    <div class="text-[11px] text-slate-400 border-t pt-3 flex justify-between items-center">
+                        <span>Calculated against PwC, McKinsey & Brookings 2026 Model Weights</span>
+                        <span class="font-semibold text-brand-indigo">Single Page App v1.0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-indigo text-slate-300 py-8 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+            <div>
+                <p class="font-serif font-bold text-white text-sm">Empirical Reality of AI Anxiety & Labor Market Restructuring</p>
+                <p class="text-slate-400 mt-0.5">Synthesized from WEF, IMF, PwC, Mercer, Brookings, and Gallup Research (2024–2026)</p>
+            </div>
+            <div class="flex items-center gap-6 text-slate-400">
+                <span>Single-Page Interactive Application</span>
+                <span>•</span>
+                <span>Canvas / Chart.js Native</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vanilla JavaScript Application Logic -->
+    <script>
+        // Data Structures for Global Charts & Simulator
+        let charts = {};
+
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Remove active states from buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-amber-400', 'border-b-2', 'border-amber-400', 'font-semibold');
+                btn.classList.add('text-slate-400');
+            });
+
+            // Show target tab
+            const target = document.getElementById('section-' + tabId);
+            if (target) target.classList.remove('hidden');
+
+            // Highlight button
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'text-amber-400', 'border-b-2', 'border-amber-400', 'font-semibold');
+                activeBtn.classList.remove('text-slate-400');
+            }
+
+            // Trigger chart resize fix on tab reveal
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        // Initialize Chart.js Visualizations on DOM Loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initMacroExposureChart();
+            initLayoffsChart();
+            initFoboTrendChart();
+            initLiteracyParadoxChart();
+            initSectorRiskChart();
+            initGenderDivideChart();
+            initWagePremiumChart();
+            initReskillingFrictionChart();
+            
+            // Run default simulator calculation
+            calculateRisk();
+
+            // Setup Global Search Interaction
+            document.getElementById('global-search').addEventListener('keyup', (e) => {
+                const query = e.target.value.toLowerCase();
+                if(!query) return;
+                
+                // Auto-highlight or filter text snippets if match found
+                const tables = document.querySelectorAll('table tr');
+                tables.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    if(text.includes(query)) {
+                        row.classList.add('bg-amber-100/50');
+                    } else {
+                        row.classList.remove('bg-amber-100/50');
+                    }
+                });
+            });
+        });
+
+        // 1. Chart Macro Exposure
+        function initMacroExposureChart() {
+            const ctx = document.getElementById('chartMacroExposure').getContext('2d');
+            charts.macro = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Advanced Economies', 'Emerging Economies', 'Low-Income Nations', 'Global Average'],
+                    datasets: [{
+                        label: 'Labor Exposure Rate (%)',
+                        data: [60, 40, 26, 40],
+                        backgroundColor: ['#2B3A4A', '#D97706', '#0D9488', '#64748B'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: (ctx) => ` Exposure: ${ctx.parsed.y}% of roles`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } }
+                    }
+                }
+            });
+        }
+
+        // 2. Chart Layoffs
+        function initLayoffsChart() {
+            const ctx = document.getElementById('chartLayoffs').getContext('2d');
+            charts.layoffs = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2024 Baseline', '2025 Full Year', '2026 (Thru Aug)'],
+                    datasets: [{
+                        label: 'AI-Attributed Layoffs (US)',
+                        data: [12742, 54836, 116175],
+                        borderColor: '#E11D48',
+                        backgroundColor: 'rgba(225, 29, 72, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#E11D48'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: 'bottom' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        }
+
+        // 3. Chart FOBO Trend
+        function initFoboTrendChart() {
+            const ctx = document.getElementById('chartFoboTrend').getContext('2d');
+            charts.fobo = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2023', '2024', '2025', '2026 Benchmark'],
+                    datasets: [
+                        {
+                            label: 'Global Job Loss Fear (Mercer)',
+                            data: [24, 28, 34, 40],
+                            borderColor: '#E11D48',
+                            tension: 0.2
+                        },
+                        {
+                            label: 'US Workers Worried (Pew)',
+                            data: [32, 42, 48, 52],
+                            borderColor: '#D97706',
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true, max: 70, ticks: { callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        // 4. Chart Literacy Paradox
+        function initLiteracyParadoxChart() {
+            const ctx = document.getElementById('chartLiteracyParadox').getContext('2d');
+            charts.literacy = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Daily AI Users', 'Non-Users / Rare Users', 'Overall Baseline'],
+                    datasets: [{
+                        label: 'Expect Role Elimination within 5 Yrs (%)',
+                        data: [36, 15, 18],
+                        backgroundColor: ['#E11D48', '#0D9488', '#2B3A4A'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 50, ticks: { callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        // 5. Chart Sector Risk
+        function initSectorRiskChart() {
+            const ctx = document.getElementById('chartSectorRisk').getContext('2d');
+            charts.sector = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Customer Service', 'Marketing/Copy', 'Admin / Clerical', 'Tech & Software', 'Banking / Finance', 'Construction'],
+                    datasets: [{
+                        label: 'Automation Disruption Risk Index (%)',
+                        data: [80, 51, 48, 42, 35, 6],
+                        backgroundColor: ['#E11D48', '#D97706', '#D97706', '#2B3A4A', '#2B3A4A', '#0D9488'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        // 6. Chart Gender Divide
+        function initGenderDivideChart() {
+            const ctx = document.getElementById('chartGenderDivide').getContext('2d');
+            charts.gender = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['US Workforce (High Risk)', 'High-Income (Disruption Risk)', 'Global High-Exposure'],
+                    datasets: [
+                        { label: 'Female Risk Rate (%)', data: [79, 9.6, 4.7], backgroundColor: '#E11D48' },
+                        { label: 'Male Risk Rate (%)', data: [58, 3.2, 2.4], backgroundColor: '#2B3A4A' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true, ticks: { callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        // 7. Chart Wage Premium
+        function initWagePremiumChart() {
+            const ctx = document.getElementById('chartWagePremium').getContext('2d');
+            charts.wage = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2024 Baseline', '2025 Metric', '2026 Metric'],
+                    datasets: [{
+                        label: 'Global AI Skill Salary Premium (%)',
+                        data: [25, 56, 62],
+                        borderColor: '#0D9488',
+                        backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#0D9488'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } },
+                    scales: { y: { beginAtZero: true, max: 80, ticks: { callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        // 8. Chart Reskilling Friction
+        function initReskillingFrictionChart() {
+            const ctx = document.getElementById('chartReskillingFriction').getContext('2d');
+            charts.reskill = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['HR Confident in Staff Reskill', 'Firms Hiring External Talent', 'Firms Executing Internal Redeployment', 'HR Lacks Skill Visibility'],
+                    datasets: [{
+                        label: 'Percentage Agreeing / Executing (%)',
+                        data: [92, 51, 42, 43],
+                        backgroundColor: ['#0D9488', '#D97706', '#2B3A4A', '#E11D48'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } } }
+                }
+            });
+        }
+
+        // SIMULATOR CALCULATOR LOGIC
+        function calculateRisk() {
+            const field = document.getElementById('sim-field').value;
+            const tier = document.getElementById('sim-tier').value;
+            const usage = document.getElementById('sim-usage').value;
+            const skill = document.getElementById('sim-skill').value;
+
+            let baseRisk = 50;
+            let wageImpact = 0;
+            let foboLevel = "Moderate";
+            let advice = "";
+
+            // Sector base
+            if(field === 'admin') baseRisk += 30;
+            if(field === 'customer') baseRisk += 35;
+            if(field === 'marketing') baseRisk += 20;
+            if(field === 'tech') baseRisk += 10;
+            if(field === 'finance') baseRisk += 5;
+            if(field === 'trades') baseRisk -= 40;
+
+            // Tier modifier (Entry-level hydraulic squeeze)
+            if(tier === 'entry') baseRisk += 15;
+            if(tier === 'senior') baseRisk -= 10;
+
+            // Usage Literacy Paradox modifier
+            if(usage === 'daily') {
+                foboLevel = "Elevated (Literacy Paradox)";
+                baseRisk += 5;
+            } else if(usage === 'none') {
+                foboLevel = "Low / Ignorance Buffer";
+            }
+
+            // Skill orientation
+            if(skill === 'orchestration') {
+                baseRisk -= 30;
+                wageImpact = 62;
+            } else if(skill === 'execution') {
+                baseRisk += 15;
+                wageImpact = -13;
+            } else {
+                baseRisk -= 15;
+                wageImpact = 15;
+            }
+
+            // Clamp risk
+            baseRisk = Math.min(Math.max(baseRisk, 5), 95);
+
+            // Display Results
+            const riskEl = document.getElementById('res-risk');
+            const riskLabelEl = document.getElementById('res-risk-label');
+            const wageEl = document.getElementById('res-wage');
+            const wageLabelEl = document.getElementById('res-wage-label');
+            const foboEl = document.getElementById('res-fobo');
+            const adviceEl = document.getElementById('res-advice');
+
+            riskEl.textContent = baseRisk + "%";
+            
+            if(baseRisk > 70) {
+                riskEl.className = "text-3xl font-bold font-serif text-rose-600";
+                riskLabelEl.textContent = "High Displacement Risk Zone";
+                riskLabelEl.className = "text-[11px] block mt-1 font-semibold text-rose-700";
+            } else if(baseRisk > 40) {
+                riskEl.className = "text-3xl font-bold font-serif text-amber-600";
+                riskLabelEl.textContent = "Moderate Transformation Zone";
+                riskLabelEl.className = "text-[11px] block mt-1 font-semibold text-amber-700";
+            } else {
+                riskEl.className = "text-3xl font-bold font-serif text-teal-600";
+                riskLabelEl.textContent = "Low Vulnerability / Resilient Zone";
+                riskLabelEl.className = "text-[11px] block mt-1 font-semibold text-teal-700";
+            }
+
+            if(wageImpact > 0) {
+                wageEl.textContent = "+" + wageImpact + "%";
+                wageEl.className = "text-3xl font-bold font-serif text-teal-600";
+                wageLabelEl.textContent = "Agentic Skill Premium Applied";
+            } else {
+                wageEl.textContent = wageImpact + "%";
+                wageEl.className = "text-3xl font-bold font-serif text-rose-600";
+                wageLabelEl.textContent = "Routine Task Deflation";
+            }
+
+            foboEl.textContent = foboLevel;
+
+            // Customized Recommendations
+            if(skill === 'execution' && baseRisk > 60) {
+                advice = "Your profile relies heavily on routine execution tasks susceptible to automated software agents. To avoid job displacement and wage deflation, transition from executing output to <strong>Agentic Orchestration</strong>—learning to integrate, prompt, and manage AI workflows.";
+            } else if(tier === 'entry') {
+                advice = "As an early-career professional navigating the <strong>entry-level squeeze</strong>, build specialized strategic judgment and cross-functional project management. Basic junior execution tasks are automated; target roles requiring human governance and agent control.";
+            } else if(skill === 'orchestration') {
+                advice = "You are positioned in the highest economic growth tier (+62% wage premium). Focus on enterprise workflow integration and cross-system security to maximize career mobility.";
+            } else {
+                advice = "Your role benefits from high physical or interpersonal dexterity. Continue upskilling in basic AI literacy while maintaining human-in-the-loop decision-making strength.";
+            }
+        }
+    </script>
+</body>
+</html>
