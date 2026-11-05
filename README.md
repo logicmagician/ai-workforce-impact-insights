@@ -32,4 +32,4 @@
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/ai-labor-restructuring-app.git](https://github.com/your-username/ai-labor-restructuring-app.git)
+   git clone [https://logicmagician.github.io/ai-workforce-impact-insights/](https://logicmagician.github.io/ai-workforce-impact-insights.git)
