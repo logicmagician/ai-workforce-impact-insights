@@ -7,7 +7,10 @@
 ## 🎥 Demo Preview
 
 <!-- Replace 'demo.gif' with your uploaded video/GIF file path or URL -->
-![App Demo & Interface Preview](demo.gif)
+
+https://github.com/user-attachments/assets/503854a3-c7e7-4291-a798-6277ba7faf5b
+
+
 
 ---
 
